@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ответ</title>
+</head>
+<body>
+<p th:text="${answer.getAnswerText() + ', Статус: ' + answer.getStatus()}">VALUE</p>
+
+<div th:if="${owner}">
+    <span>Ответ для вопроса: </span> <span th:text="${owner.getQuestionText()}">Текст вопроса</span>
+
+    <form th:method="PATCH" th:action="@{/answers/{id}/release(id=${question.getId()})}">
+        <input type="submit" value="Снять ответ с этого вопроса"/>
+    </form>
+</div>
+
+<div th:if="${questions}">
+    <span>Этот ответ не относится ни к какому вопросу. Куда назначить его?</span>
+    <form th:method="PATCH" th:action="@{/answers/{id}/assign(id=${answer.getId()})}">
+        <label for="question">Выберите вопрос</label>
+        <select th:object="${question}" th:field="*{id}" id="question">
+            <option th:each="question : ${questions}" th:value="${question.getId()}" th:text="${question.getQuestionText()}">
+            </option>
+        </select>
+        <input type="submit" value="Назначить ответ выбранному вопросу"/>
+    </form>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/answers/{id}/edit(id=${answer.getId()})}">
+    <input type="submit" value="Редактировать ответ"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/answers/{id}(id=${answer.getId()})}">
+    <input type="submit" value="Удалить ответ"/>
+</form>
+
+<a href="/answers">К списку ответов</a>
+
+</body>
+</html>

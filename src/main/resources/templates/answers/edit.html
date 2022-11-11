@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование ответа</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/answers/{id}(id=${answer.getId()})}" th:object="${answer}">
+  <label for="answerText">Введите текст ответа: </label>
+  <input type="text" th:field="*{answerText}" id="answerText"/>
+  <div style="color:red" th:if="${#fields.hasErrors('answerText')}" th:errors="*{answerText}">Answer text Error</div>
+  <br/>
+  <label for="status">Введите статус ответа (1 - верный \ 0 - неверный): </label>
+  <input type="text" th:field="*{status}" id="status"/>
+  <div style="color:red" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Status Error</div>
+  <br/>
+  <input type="submit" value="Редактировать ответ!"/>
+</form>
+
+</body>
+</html>

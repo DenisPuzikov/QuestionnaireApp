@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div th:each="questionnaire : ${questionnaires}">
+    <a th:href="@{/questionnaires/{id}(id=${questionnaire.getId()})}"
+       th:text="${'Название: ' + questionnaire.getHeading()}">Список опросников: </a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/questionnaires/new">Добавить новый опросник</a>
+<br/>
+<a href="/questionnaires/search">Найти опросник</a>
+<br/>
+<a href="/answers">К списку ответов</a>
+<br/>
+<a href="/questions">К списку вопросов</a>
+
+</body>
+</html>

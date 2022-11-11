@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Опросник</title>
+</head>
+<body>
+
+<p th:text="${'Название: ' + questionnaire.getHeading()}">VALUE</p>
+
+<div th:if="${questions.isEmpty()}">
+    <p>В опроснике пока нет вопросов</p>
+    <hr/>
+</div>
+
+<div th:if="${!questions.isEmpty()}">
+    <hr/>
+    <b>Вопросы:</b>
+    <br/>
+
+    <table th:each="question : ${questions}">
+        <tr>
+            <td>
+                <span th:text="${'Вопрос: ' + question.getQuestionText()}">
+                    вопрос
+                </span>
+
+                <hr/>
+                <span th:text="${'Варианты ответов: ' + question.getAnswers()}">
+                    ответы
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<hr/>
+<form th:method="GET" th:action="@{/questionnaires/{id}/edit(id=${questionnaire.getId()})}">
+    <input type="submit" value="Редактировать опросник"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/questionnaires/{id}(id=${questionnaire.getId()})}">
+    <input type="submit" value="Удалить опросник"/>
+</form>
+<br>
+<a href="/questionnaires">К списку опросников</a>
+
+</body>
+</html>

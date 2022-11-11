@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div th:each="question : ${questions}">
+    <a th:href="@{/questions/{id}(id=${question.getId()})}"
+       th:text="${'Текст: ' + question.getQuestionText()}">Список вопросов: </a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/questions/new">Добавить новый вопрос</a>
+<br/>
+<a href="/questions/search">Найти вопрос</a>
+<br/>
+<a href="/answers">К списку ответов</a>
+
+</body>
+</html>

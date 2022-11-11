@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список ответов</title>
+</head>
+<body>
+
+<div th:each="answer : ${answers}">
+  <a th:href="@{/answers/{id}(id=${answer.getId()})}"
+     th:text="${'Текст ответа: ' + answer.getAnswerText() + ', Статус: ' + answer.getStatus()}">answer</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/answers/new">Добавить новый ответ</a>
+<br/>
+<a href="/answers/search">Найти ответ</a>
+<br/>
+<a href="/questions">К списку вопросов</a>
+
+</body>
+</html>

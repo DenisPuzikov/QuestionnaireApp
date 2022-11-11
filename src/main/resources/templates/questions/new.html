@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>New question</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/questions}" th:object="${question}">
+    <label for="questionText">Введите текст вопроса: </label>
+    <input type="text" th:field="*{questionText}" id="questionText"/>
+    <div style="color:red" th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}">Question Text Error</div>
+    <br/>
+    <input type="submit" value="Создать вопрос"/>
+</form>
+
+</body>
+</html>

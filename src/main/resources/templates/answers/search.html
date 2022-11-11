@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск ответов</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/answers/search}">
+  <label for="answerText">Введите текст ответа: </label>
+  <input type="text" id="answerText" name="answerText"/>
+  <br/>
+  <input type="submit" value="Искать ответ!"/>
+</form>
+
+<div th:if="${answers}">
+  <div th:if="${answers.isEmpty()}">
+    <span>Ответа с таким текстом не найдено</span>
+  </div>
+
+  <div th:each="answer : ${answers}">
+    <p th:text="${'Текст ответа: ' + answer.getAnswerText() + ', Статус: ' + answer.getStatus()}">Ответ</p>
+
+    <div th:if="${answer.getOwner() != null}">
+      <span>Ответ относится к вопросу: </span> <span th:text="${answer.getOwner().getQuestionText()}">Вопрос </span>
+    </div>
+
+    <div th:if="${answer.getOwner() == null}">
+      <span>Ответ не относится ни к какому вопросу</span>
+    </div>
+
+    <hr/>
+  </div>
+</div>
+
+</body>
+</html>

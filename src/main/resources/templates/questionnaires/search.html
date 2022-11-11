@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск опросника:</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/questionnaires/search}">
+    <label for="query">Введите название опросника: </label>
+    <input type="text" id="query" name="query"/>
+    <br/>
+    <input type="submit" value="Искать опросник"/>
+</form>
+
+<div th:if="${questionnaires}">
+  <div th:if="${questionnaires.isEmpty()}">
+    <span>Опросник не найден!</span>
+  </div>
+
+  <div th:each="questionnaire : ${questionnaires}">
+    <a th:href="@{/questionnaires/{id}(id=${questionnaire.getId()})}"
+       th:text="${'Название: ' + questionnaire.getHeading()}">Список опросников:</a>
+  </div>
+</div>
+
+</body>
+</html>

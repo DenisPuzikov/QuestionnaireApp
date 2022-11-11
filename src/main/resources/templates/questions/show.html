@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Show questions</title>
+</head>
+<body>
+<p th:text="${'Текст вопроса: ' + question.getQuestionText()}">VALUE</p>
+
+<hr/>
+
+<div th:if="${owner}">
+    <span>Ответ для опросника: </span> <span th:text="${owner.getHeading()}">Опросник</span>
+
+    <form th:method="PATCH" th:action="@{/questions/{id}/release(id=${questionnaire.getId()})}">
+        <input type="submit" value="Убрать этот вопрос из опросника"/>
+    </form>
+</div>
+
+<div th:if="${questionnaires}">
+    <span>К какому опроснику прикрепить вопрос?</span>
+    <form th:method="PATCH" th:action="@{/questions/{id}/assign(id=${question.getId()})}">
+        <label for="questionnaire">Выберите опросник</label>
+        <select th:object="${questionnaire}" th:field="*{id}" id="questionnaire">
+            <option th:each="questionnaire : ${questionnaires}" th:value="${questionnaire.getId()}" th:text="${questionnaire.getHeading()}">
+            </option>
+        </select>
+        <input type="submit" value="Назначить вопрос опроснику"/>
+    </form>
+</div>
+
+<hr/>
+
+<div th:if="${answers.isEmpty()}">
+    <p>В вопрос пока не добавлены варианты ответов</p>
+    <hr/>
+</div>
+
+<div th:if="${!answers.isEmpty()}">
+    <hr/>
+    <b>Варианты ответов для вопроса:</b>
+    <br/>
+    <table th:each="answer : ${answers}">
+        <tr>
+            <td>
+                <span th:text="${'Ответ: ' + answer.getAnswerText() + ', статус (1 - верно, 0 - не верно):' + answer.getStatus() }">
+                    answer
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<form th:method="GET" th:action="@{/questions/{id}/edit(id=${question.getId()})}">
+    <input type="submit" value="Редактировать вопрос"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/questions/{id}(id=${question.getId()})}">
+    <input type="submit" value="Удалить вопрос"/>
+</form>
+<br>
+<a href="/questions">К списку вопросов</a>
+
+</body>
+</html>

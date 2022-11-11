@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск вопроса:</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/questions/search}">
+    <label for="query">Введите вопрос: </label>
+    <input type="text" id="query" name="query"/>
+    <br/>
+    <input type="submit" value="Искать вопрос"/>
+</form>
+
+<div th:if="${questions}">
+  <div th:if="${questions.isEmpty()}">
+    <span>Вопрос, начинающийся с такого текста не найден!</span>
+  </div>
+
+  <div th:each="question : ${questions}">
+    <a th:href="@{/questions/{id}(id=${question.getId()})}"
+       th:text="${'Текст: ' + question.getQuestionText()}">Список вопросов:</a>
+  </div>
+</div>
+
+</body>
+</html>

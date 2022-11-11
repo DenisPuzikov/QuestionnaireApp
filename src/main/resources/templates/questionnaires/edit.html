@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать опросник</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/questionnaires/{id}(id=${questionnaire.getId()})}" th:object="${questionnaire}">
+    <label for="heading">Введите новое название: </label>
+    <input type="text" th:field="*{heading}" id="heading"/>
+    <div style="color:red" th:if="${#fields.hasErrors('heading')}" th:errors="*{heading}">Heading Text Error</div>
+    <br/>
+    <input type="submit" value="Редактировать опросник"/>
+</form>
+
+</body>
+</html>
